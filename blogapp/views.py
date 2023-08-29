@@ -3,32 +3,32 @@ from .models import *
 from django.http import JsonResponse
 import json
 from django.db.models import Q
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+# from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
 
 def index(request):
     search_query = ""
-    if request.GET.get("keyword"):
-        search_query = request.GET.get("keyword")
-    print(search_query)
-    blogs = Blog.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
+    # if request.GET.get("keyword"):
+    #     search_query = request.GET.get("keyword")
+    # print(search_query)
+    # blogs = Blog.objects.filter(Q(title__icontains=search_query) | Q(body__icontains=search_query))
     
-    page = request.GET.get("page")
-    results = 4
-    paginator = Paginator(blogs, results)
+    # page = request.GET.get("page")
+    # results = 4
+    # paginator = Paginator(blogs, results)
     
-    try:
-        blogs = paginator.page(page)
+    # try:
+    #     blogs = paginator.page(page)
     
-    except PageNotAnInteger:
-        page = 1
-        blogs = paginator.page(page)
+    # except PageNotAnInteger:
+    #     page = 1
+    #     blogs = paginator.page(page)
     
-    except EmptyPage:
-        page = paginator.num_pages
-        blogs = paginator.page(page)
+    # except EmptyPage:
+    #     page = paginator.num_pages
+    #     blogs = paginator.page(page)
     
-    context = {"blogs":blogs, "search_query": search_query, "paginator": paginator}
+    context = {"blogs":"", "search_query": "", "paginator": ""}
     return render(request, "blogapp/index.html", context)
 
 def detail(request, slug):
